@@ -1,9 +1,8 @@
-const express = require('express');
-const jsonwebtoken = require('jsonwebtoken');
-const path = require('path');
-const config = require('./config');
+import express from 'express';
+import jsonwebtoken from 'jsonwebtoken';
+import path from 'path';
+import { config } from './config';
 
-// TODO Migrate to Typescript
 // TODO Connect to database
 
 const app = express();
