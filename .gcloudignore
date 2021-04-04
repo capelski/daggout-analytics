@@ -1,8 +1,11 @@
+.git/
+.vscode/
 node_modules/
-src/
-webpack/
+src-client/
+# .env file must be ignored in production so env-variables.yaml parameters are used instead
+.env
 .gcloudignore
-.git
 .gitignore
 .prettierrc
+template.*
 tsconfig.json

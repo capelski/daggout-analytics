@@ -1,0 +1,16 @@
+.navbar-link {
+    padding: 0 16px;
+}
+
+.screen-divider {
+    @media (min-width: 768px) {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    > div {
+        @media (min-width: 768px) {
+            width: 50%;
+        }
+    }
+}
