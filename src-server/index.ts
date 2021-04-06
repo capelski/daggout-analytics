@@ -1,7 +1,6 @@
 import express from 'express';
-import jsonwebtoken from 'jsonwebtoken';
 import path from 'path';
-import { config } from './config';
+import { authHandler, authMiddleware, refreshTokenHandler } from './controllers/auth';
 
 // TODO Connect to database
 
@@ -11,22 +10,13 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.static(path.resolve(__dirname, '..', 'public')));
 
-app.post('/api/auth', express.json(), (req, res, next) => {
-    const body = req.body;
+app.post('/api/auth', express.json(), authHandler);
 
-    if (!body.username) {
-        return res.status(400).json({ message: 'Missing username' });
-    } else if (!body.password) {
-        return res.status(400).json({ message: 'Missing password' });
-    } else if (body.username !== config.MASTER_USER || body.password !== config.MASTER_PASSWORD) {
-        return res.status(400).json({ message: 'Bad username or password' });
-    } else {
-        return res.json({
-            token: jsonwebtoken.sign({ username: body.username }, config.JWT_SECRET, {
-                expiresIn: '3h'
-            })
-        });
-    }
+app.post('/api/refresh-token', authMiddleware, refreshTokenHandler);
+
+app.use((req, res, next) => {
+    // Redirect any non-existing route to index.html
+    res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
 });
 
 app.listen(PORT, () => {
