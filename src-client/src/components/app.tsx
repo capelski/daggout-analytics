@@ -32,7 +32,7 @@ export const App: React.FC = () => {
 
                     <Switch>
                         <Route path="/market">
-                            <Market />
+                            <Market authToken={authToken} />
                         </Route>
                         <Route path="/your-store">
                             <YourStore />
