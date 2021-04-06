@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter, Link, Redirect, Route, Switch } from 'react-router-dom';
 import { Auth } from './components/auth';
 import { ChartComponent } from './components/chart';
+import { clearAuthToken } from './storage';
 
 import './style/main.scss';
 
@@ -21,6 +22,14 @@ const App: React.FC = () => {
                         <Link to="/your-store" className="navbar-link">
                             Your store
                         </Link>
+                        <button
+                            onClick={() => {
+                                clearAuthToken();
+                                setAuthToken(undefined);
+                            }}
+                        >
+                            Sign out
+                        </button>
                     </nav>
 
                     <Switch>
