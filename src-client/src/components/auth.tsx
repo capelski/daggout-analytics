@@ -34,6 +34,7 @@ export const Auth: React.FC<AuthProps> = (props) => {
                 })
                 .catch(() => {
                     // If refresh fails, user will have to re-authenticate
+                    clearAuthToken();
                 })
                 .finally(() => {
                     setIsLoading(false);
@@ -43,6 +44,7 @@ export const Auth: React.FC<AuthProps> = (props) => {
 
     return (
         <div>
+            <h1>Daggout analytics</h1>
             <p>
                 Username
                 <input

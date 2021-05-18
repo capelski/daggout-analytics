@@ -1,48 +1,35 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Link, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import { clearAuthToken } from '../storage';
 import { Auth } from './auth';
-import { Market } from './market';
-import { YourStore } from './your-store';
+import { Demo } from './demo';
 
 export const App: React.FC = () => {
     const [authToken, setAuthToken] = useState<string>();
 
-    return (
-        <React.Fragment>
-            <h1>Daggout analytics</h1>
-            {authToken ? (
-                <BrowserRouter>
-                    <nav>
-                        <Link to="/market" className="navbar-link">
-                            Market
-                        </Link>
-                        <Link to="/your-store" className="navbar-link">
-                            Your store
-                        </Link>
-                        <button
-                            onClick={() => {
-                                clearAuthToken();
-                                setAuthToken(undefined);
-                            }}
-                        >
-                            Sign out
-                        </button>
-                    </nav>
+    return authToken ? (
+        <BrowserRouter>
+            <nav>
+                <Link to="/" className="navbar-link">
+                    Home
+                </Link>
+                <button
+                    onClick={() => {
+                        clearAuthToken();
+                        setAuthToken(undefined);
+                    }}
+                >
+                    Sign out
+                </button>
+            </nav>
 
-                    <Switch>
-                        <Route path="/market">
-                            <Market authToken={authToken} />
-                        </Route>
-                        <Route path="/your-store">
-                            <YourStore />
-                        </Route>
-                        <Redirect exact from="/" to="/market" />
-                    </Switch>
-                </BrowserRouter>
-            ) : (
-                <Auth setAuthToken={setAuthToken} />
-            )}
-        </React.Fragment>
+            <Switch>
+                <Route path="/">
+                    <Demo authToken={authToken} />
+                </Route>
+            </Switch>
+        </BrowserRouter>
+    ) : (
+        <Auth setAuthToken={setAuthToken} />
     );
 };
