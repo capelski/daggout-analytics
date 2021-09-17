@@ -69,7 +69,12 @@ export const Auth: React.FC<AuthProps> = (props) => {
                 />
             </p>
             {isLoading && (
-                <img height={32} src="/images/spinner.gif" style={{ marginLeft: 16 }} width={32} />
+                <img
+                    height={32}
+                    src="/daggout-analytics/images/spinner.gif"
+                    style={{ marginLeft: 16 }}
+                    width={32}
+                />
             )}
             <p style={{ color: 'red' }}>{errorMessage}</p>
             <button

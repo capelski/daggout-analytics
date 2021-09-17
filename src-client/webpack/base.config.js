@@ -30,7 +30,7 @@ module.exports = {
     },
     output: {
         path: resolve(__dirname, '..', '..', 'docs'),
-        publicPath: '/'
+        publicPath: '/daggout-analytics/'
     },
     plugins: [
         new MiniCssExtractPlugin(),
