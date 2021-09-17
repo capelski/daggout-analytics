@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ChartComponent } from './chart';
 import { CustomTable } from './custom-table';
 
@@ -6,34 +6,63 @@ interface DemoProps {
     authToken: string;
 }
 
+interface MockMarketRow {
+    brand: string;
+    purchases: number;
+    total: number;
+}
+
+const mockMarketData: MockMarketRow[] = [
+    {
+        brand: 'H&M',
+        purchases: 23,
+        total: 1045.72
+    },
+    {
+        brand: 'Mango',
+        purchases: 16,
+        total: 854.13
+    },
+    {
+        brand: 'Zara',
+        purchases: 45,
+        total: 2316.9
+    }
+];
+
 export const Demo: React.FC<DemoProps> = (props) => {
-    const [errorMessage, setErrorMessage] = useState<string>();
-    const [marketStats, setMarketStats] = useState<any[]>([]);
+    // const [errorMessage, setErrorMessage] = useState<string>();
+    // const [marketStats, setMarketStats] = useState<any[]>([]);
 
-    useEffect(() => {
-        fetch('/api/market-share', {
-            headers: {
-                Authorization: props.authToken
-            },
-            method: 'GET'
-        })
-            .then((response) => {
-                if (response.ok) {
-                    response.json().then(setMarketStats);
-                } else {
-                    response.json().then((error) => setErrorMessage(error.message));
-                }
-            })
-            .catch((error) => {
-                setErrorMessage(error.message);
-            });
-    }, []);
+    // useEffect(() => {
+    //     fetch('/api/market-share', {
+    //         headers: {
+    //             Authorization: props.authToken
+    //         },
+    //         method: 'GET'
+    //     })
+    //         .then((response) => {
+    //             if (response.ok) {
+    //                 response.json().then(setMarketStats);
+    //             } else {
+    //                 response.json().then((error) => setErrorMessage(error.message));
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             setErrorMessage(error.message);
+    //         });
+    // }, []);
 
-    const marketData = marketStats.reduce(
+    const marketData = mockMarketData.reduce<{
+        colors: string[];
+        labels: string[];
+        purchases: number[];
+        totals: number[];
+    }>(
         (reduced, next, index) => ({
             colors: reduced.colors.concat([
                 `rgba(193, 159, 130, ${
-                    Math.round(marketStats.length - index) / marketStats.length
+                    Math.round(mockMarketData.length - index) / mockMarketData.length
                 })`
             ]),
             labels: reduced.labels.concat([next.brand]),
@@ -123,27 +152,27 @@ export const Demo: React.FC<DemoProps> = (props) => {
                 <div style={{ display: 'flex', flexGrow: 1 }}>
                     <div style={{ width: '50%' }}>
                         <h4>Buyers share</h4>
-                        {errorMessage ? (
+                        {/* {errorMessage ? (
                             <p style={{ color: 'red' }}>{errorMessage}</p>
-                        ) : (
-                            <ChartComponent
-                                data={{
-                                    labels: marketData.labels,
-                                    datasets: [
-                                        {
-                                            backgroundColor: marketData.colors,
-                                            data: marketData.purchases
-                                        }
-                                    ]
-                                }}
-                                options={{
-                                    legend: {
-                                        position: 'bottom'
+                        ) : ( */}
+                        <ChartComponent
+                            data={{
+                                labels: marketData.labels,
+                                datasets: [
+                                    {
+                                        backgroundColor: marketData.colors,
+                                        data: marketData.purchases
                                     }
-                                }}
-                                type="pie"
-                            />
-                        )}
+                                ]
+                            }}
+                            options={{
+                                legend: {
+                                    position: 'bottom'
+                                }
+                            }}
+                            type="pie"
+                        />
+                        {/* )} */}
                     </div>
                     <div style={{ flexGrow: 1 }}>
                         <h4>Online/offline share</h4>
