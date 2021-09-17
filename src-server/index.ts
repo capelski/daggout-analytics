@@ -9,7 +9,7 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-app.use(express.static(path.resolve(__dirname, '..', 'public')));
+app.use(express.static(path.resolve(__dirname, '..', 'docs')));
 
 app.post('/api/auth', express.json(), authHandler);
 
@@ -19,7 +19,7 @@ app.get('/api/market-share', authMiddleware, marketShareHandler);
 
 app.use((req, res, next) => {
     // Redirect any non-existing route to index.html
-    res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
+    res.sendFile(path.resolve(__dirname, '..', 'docs', 'index.html'));
 });
 
 app.listen(PORT, () => {

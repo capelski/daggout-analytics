@@ -29,7 +29,7 @@ module.exports = {
         ]
     },
     output: {
-        path: resolve(__dirname, '..', '..', 'public'),
+        path: resolve(__dirname, '..', '..', 'docs'),
         publicPath: '/'
     },
     plugins: [
