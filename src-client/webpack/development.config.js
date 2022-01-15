@@ -7,7 +7,7 @@ module.exports = merge(baseConfig, {
         historyApiFallback: true,
         open: true,
         openPage: 'daggout-analytics',
-        proxy: { '/api': 'http://localhost:3000' },
+        // proxy: { '/api': 'http://localhost:3000' },
         publicPath: '/daggout-analytics'
     }
 });
